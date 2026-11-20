@@ -169,6 +169,13 @@ def best_threshold(y, p, w):
     return float(grid[np.argmax([f1_score(y, p >= t, sample_weight=w) for t in grid])])
 
 
+def summarise(folds_df: pd.DataFrame) -> pd.DataFrame:
+    """Mean and spread of the fold scores for each algorithm and feature set, best first."""
+    return folds_df.groupby(["algorithm", "feature_set"]).agg(
+        pr_auc_mean=("pr_auc", "mean"), pr_auc_sd=("pr_auc", "std"), roc_auc_mean=("roc_auc", "mean"),
+        brier_mean=("brier", "mean")).reset_index().sort_values("pr_auc_mean", ascending=False)
+
+
 def main():
     """Tune, compare and select the models, then calibrate and save the chosen one."""
     RESULTS.mkdir(parents=True, exist_ok=True)
@@ -190,9 +197,7 @@ def main():
         oof[(fs, algo)], s = cross_validate(algo, fs, params, df, folds)
         fold_scores.append(s.assign(model=NAMES[algo], algorithm=algo, feature_set=fs))
     folds_df = pd.concat(fold_scores)
-    summary = folds_df.groupby(["algorithm", "feature_set"]).agg(
-        pr_auc_mean=("pr_auc", "mean"), pr_auc_sd=("pr_auc", "std"), roc_auc_mean=("roc_auc", "mean"),
-        brier_mean=("brier", "mean")).reset_index().sort_values("pr_auc_mean", ascending=False)
+    summary = summarise(folds_df)
 
     # 3. Select.
     full = summary[summary["feature_set"] == "full"].set_index("algorithm")
@@ -221,7 +226,7 @@ def main():
               "threshold": threshold, "features": columns("full"), "algorithm": chosen}
     joblib.dump(bundle, MODEL_DIR / "model.joblib", compress=3)
     joblib.dump(finals, RESULTS / "all_models.joblib", compress=3)
-    summary.to_csv(RESULTS / "cv_summary.csv", index=False)
+    summarise(folds_df).to_csv(RESULTS / "cv_summary.csv", index=False)   # includes the H3 runs from step 4
     folds_df.to_csv(RESULTS / "cv_folds.csv", index=False)
     np.save(RESULTS / "oof_chosen.npy", oof[("full", chosen)])
     meta = {"model": NAMES[chosen], "params": best[("full", chosen)], "calibration": method,
