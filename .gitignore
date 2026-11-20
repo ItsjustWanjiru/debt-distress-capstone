@@ -1,0 +1,9 @@
+# FinAccess microdata may not be shared (KeNADA terms)
+Data/*.dta
+Data/processed/
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+predictions.csv
+Model/results/oof_chosen.npy
+anaconda_projects/

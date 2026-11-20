@@ -1,0 +1,4 @@
+age_group,sex,education,livelihood,household_size,residence,province,uses_mobile_bank,uses_mobile_money,uses_digital_app,uses_hustler_fund,loans_12m,outstanding_loans,repayment_burden,debt_to_income,purpose,shocks,savings_difficulty,has_savings,literacy_score,nondigital_loans
+25-34,Female,Secondary,Casual worker,4,Urban,Nairobi,0,1,0,1,12.0,2,0.26666666666666666,0.2,day_to_day,1,Very difficult,1,2,1
+45-54,Male,Secondary,Agriculture,4,Rural,Western,0,1,0,1,3.0,0,0.03333333333333333,0.2,productive,0,Very difficult,1,2,0
+16-24,Female,Secondary,Casual worker,4,Urban,Nairobi,0,1,1,1,40.0,4,0.6,0.2,day_to_day,3,Very difficult,1,2,3

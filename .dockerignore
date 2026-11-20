@@ -1,0 +1,7 @@
+.venv/
+Data/*.dta
+Data/processed/
+Notebook/
+Presentation/
+Model/results/
+**/__pycache__/

@@ -1,0 +1,60 @@
+{
+ "model": "LightGBM",
+ "params": {
+  "n_estimators": 276,
+  "learning_rate": 0.02922137072999514,
+  "num_leaves": 6,
+  "subsample": 0.8920258311276335,
+  "colsample_bytree": 0.6571190656089414,
+  "reg_lambda": 2.615919624374859,
+  "min_child_samples": 72
+ },
+ "calibration": "platt",
+ "calibration_brier": {
+  "platt": 0.17859068061552041,
+  "isotonic": 0.17868199711440538,
+  "uncalibrated": 0.17889104078180362
+ },
+ "threshold": 0.3378485193688632,
+ "features": [
+  "household_size",
+  "loans_12m",
+  "outstanding_loans",
+  "repayment_burden",
+  "debt_to_income",
+  "uses_mobile_bank",
+  "uses_mobile_money",
+  "uses_digital_app",
+  "uses_hustler_fund",
+  "shocks",
+  "has_savings",
+  "literacy_score",
+  "nondigital_loans",
+  "age_group",
+  "sex",
+  "education",
+  "livelihood",
+  "residence",
+  "province",
+  "purpose",
+  "savings_difficulty"
+ ],
+ "h3": {
+  "gain": 0.09762324978435834,
+  "ci_low": 0.06734412878440595,
+  "ci_high": 0.1290751857120714
+ },
+ "test": {
+  "pr_auc": 0.64204518202511,
+  "roc_auc": 0.7708469111580994,
+  "brier": 0.18691710064891456,
+  "precision": 0.5734343602992398,
+  "recall": 0.7128348948125398,
+  "f1": 0.6355808012689881,
+  "share_flagged": 0.4675984662505251,
+  "chance (prevalence)": 0.37615586627782827
+ },
+ "label": "Late/missed/no repayment (E2E 1-2) AND a hardship sacrifice (E2D 1, 3, 4, 7), past 12 months",
+ "population": "Current digital credit borrowers, FinAccess 2024",
+ "intended_use": "Group-level risk profiles; not for decisions about individual borrowers"
+}
